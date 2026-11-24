@@ -24,7 +24,23 @@ import sys
 WORD = "almost"
 
 
+def check_word(word: str) -> None:
+    """Self-check: the gate counts one word of 1-24 characters.
+
+    Fail loudly here instead of writing an entry the gate would reject:
+    exactly one word, no spaces, no newlines, 1-24 characters long.
+    """
+    if not (1 <= len(word) <= 24):
+        raise ValueError(f"word must be 1-24 characters, got {len(word)}")
+    if any(ch.isspace() for ch in word):
+        raise ValueError("word must contain no whitespace")
+
+
 def main() -> int:
+    # Word choice, restated for the record: "almost" is the ex's whole
+    # verdict in six letters — almost the one, almost enough, almost
+    # made it. Short enough to sting, plain enough to need no setup.
+    check_word(WORD)
     out_dir = os.environ.get("OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     out_path = os.path.join(out_dir, "entry.txt")
